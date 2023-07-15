@@ -1,24 +1,15 @@
 "use client";
 
-import {
-  Box,
-  Container,
-  Divider,
-  Heading,
-  Image,
-  SimpleGrid,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Container, Image, Text } from "@chakra-ui/react";
 import Head from "next/head";
-import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import { getAllQuiz, getAllUsers } from "../utils/db";
-import Navbar from "@/common/NavBar";
+// import { useRouter } from "next/navigation";
+import React from "react";
 
 const Home = () => {
+  /*
   const [quiz, setQuiz] = useState([]);
   const router = useRouter();
-
+  
   const generateQuizCard = (singleQuiz) => {
     return (
       <Box m={3} borderWidth="1px" borderRadius="lg" p={6} boxShadow="xl">
@@ -38,7 +29,7 @@ const Home = () => {
       </Box>
     );
   };
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -58,6 +49,7 @@ const Home = () => {
 
     fetchData();
   }, []);
+  */
 
   return (
     <Box>
@@ -71,9 +63,6 @@ const Home = () => {
       </Head>
 
       <main>
-        <header>
-          <Navbar />
-        </header>
         <section>
           <Container textAlign={"center"} p={6}>
             <Text
@@ -91,10 +80,7 @@ const Home = () => {
             >
               ¿Qué tan bien te conocen tus amigos?
             </Text>
-            <Image
-              src="/static/friends-small.png"
-              alt="a group of friends"
-            />
+            <Image src="/static/friends-small.png" alt="a group of friends" />
             <Box
               textAlign={"start"}
               backgroundColor={"#202025"}
@@ -158,6 +144,7 @@ const Home = () => {
             </Box>
           </Container>
         </section>
+        {/*
         <section>
           <Container maxW="6xl">
             {quiz.length > 0 && (
@@ -177,6 +164,7 @@ const Home = () => {
             )}
           </Container>
         </section>
+        */}
       </main>
     </Box>
   );
