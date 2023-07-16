@@ -1,6 +1,5 @@
 "use client";
 
-import Navbar from "@/common/NavBar";
 import { getAnswer, getSingleQuiz } from "@/utils/db";
 import {
   Box,
@@ -13,29 +12,28 @@ import {
   SimpleGrid,
   Text,
 } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-const Answer = ({ params }) => {
+const Answer = () => {
   const router = useRouter();
+  const { answerId } = useParams();
   const [quiz, setQuiz] = useState(null);
   const [answer, setAnswer] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const { id, answerId } = params;
-      const quizData = await getSingleQuiz(id);
-      const answerData = await getAnswer(answerId);
+      const quizData = await getSingleQuiz(answerId);
+      //const answerData = await getAnswer(answerId);
       setQuiz(quizData);
-      setAnswer(answerData);
+      //setAnswer(answerData);
     };
 
     fetchData();
-  }, [router.query]);
+  }, []);
 
   return (
     <>
-      <Navbar />
       {quiz && answer && (
         <Container maxW="3xl" mt={5}>
           <Center flexDirection="column">

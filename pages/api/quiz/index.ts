@@ -1,11 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { addQuiz as addQuizFb } from '@/utils/db';
-import { auth } from '@/lib/firebase-admin';
 
 const addQuiz = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const user = await auth.verifyIdToken(req.headers.token as string);
-    const quizData = { ...req.body, userId: user.uid };
+    const quizData = { ...req.body };
     await addQuizFb(quizData);
     return res
       .status(200)

@@ -14,11 +14,9 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../../../lib/auth";
 import { addAnswerApi } from "@/utils/service";
-import Navbar from "@/common/NavBar";
 import { getSingleQuiz } from "@/utils/db";
 
 const ShowQuiz = ({ quiz, onSubmit }) => {
@@ -94,26 +92,23 @@ const ShowQuiz = ({ quiz, onSubmit }) => {
 };
 
 const SingleQuiz = ({ params }) => {
-  const { auth, loading } = useAuth();
   const router = useRouter();
+  const { answerId } = useParams();
   const [quiz, setQuiz] = useState(null);
 
   useEffect(() => {
     const fetchQuiz = async () => {
-      const quizData = await getSingleQuiz(params.id);
+      const quizData = await getSingleQuiz(answerId);
+      console.log(quizData);
       setQuiz(quizData);
     };
+    fetchQuiz();
+  }, []);
 
-    if (!auth && !loading) {
-      router.push(`/signin?next=/quiz/${params.id}`);
-    } else {
-      fetchQuiz();
-    }
-  }, [auth, loading]);
-
+  
   const onSubmit = async (values, actions) => {
     try {
-      const resp = await addAnswerApi(auth, params.id, values);
+      const resp = await addAnswerApi(params.id, values);
       const answerId = resp.data.data.answerId;
       router.push(`/quiz/${params.id}/answer/${answerId}`);
     } catch (error) {
@@ -123,12 +118,7 @@ const SingleQuiz = ({ params }) => {
     }
   };
 
-  return (
-    <>
-      <Navbar />
-      {quiz && <ShowQuiz quiz={quiz} onSubmit={onSubmit} />}
-    </>
-  );
+  return <>{quiz && <ShowQuiz quiz={quiz} onSubmit={onSubmit} />}</>;
 };
 
 export default SingleQuiz;

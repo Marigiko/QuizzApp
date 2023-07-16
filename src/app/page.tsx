@@ -1,14 +1,15 @@
 "use client";
 
-import { Box, Container, Image, Input, Text } from "@chakra-ui/react";
+import { Box, Button, Container, Image, Input, Text } from "@chakra-ui/react";
 import Head from "next/head";
-// import { useRouter } from "next/navigation";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useRef } from "react";
 
 const Home = () => {
+  const router = useRouter();
+  const inputRef = useRef();
   /*
   const [quiz, setQuiz] = useState([]);
-  const router = useRouter();
   
   const generateQuizCard = (singleQuiz) => {
     return (
@@ -159,6 +160,12 @@ const Home = () => {
           </Box>
           <Input
             borderRadius="2xl"
+            onKeyPressCapture={(event) => {
+              if (event.key === "Enter") {
+                router.push(`/questions/${inputRef.current.value}`);
+              }
+            }}
+            ref={inputRef}
             h={"14"}
             borderWidth="4px"
             borderColor={"#3c3c47"}
@@ -166,6 +173,21 @@ const Home = () => {
             _focus={{ bgColor: "#000000" }}
             boxShadow="xl"
           />
+          <Button
+            w={"100%"}
+            onClick={() => router.push(`/questions/${inputRef.current.value}`)}
+            borderRadius="3xl"
+            mt={"15px"}
+            h={"16"}
+            __css={{ bgColor: "#5000ff !important" }}
+            fontStyle={"italic"}
+            fontSize={"2xl"}
+            letterSpacing={"tighter"}
+            fontWeight={"extrabold"}
+            fontFamily={"Ropa Sans, sans-serif"}
+          >
+            Get Started
+          </Button>
           <Box as="section">
             <Box as="article" mt={"30px"}>
               <Text

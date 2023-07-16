@@ -5,6 +5,8 @@ import {
   addDoc,
   getDocs,
   getDoc,
+  query,
+  where,
 } from "firebase/firestore";
 import { firestore } from "../lib/firebase";
 
@@ -35,10 +37,12 @@ export const getAllUsers = async () => {
 };
 
 export const getSingleQuiz = async (quizId) => {
-  const snapshot = await getDoc(
-    doc(collection(firestore, "quiz"), String(quizId))
-  );
-  if (snapshot.exists()) {
+  const q = query(collection(firestore, "quiz"), where("id", "==", quizId));
+  const querySnapshot = await getDocs(q);
+
+  if (!querySnapshot.empty) {
+    // Obtén el primer documento de la lista de resultados
+    const snapshot = querySnapshot.docs[0];
     return snapshot.data();
   } else {
     return null;

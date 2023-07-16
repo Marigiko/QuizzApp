@@ -1,10 +1,9 @@
 import axios from 'axios';
 
-export const addQuizApi = async (auth: any, values: any) => {
+export const addQuizApi = async (values: any) => {
   try {
     const header = {
       'Content-Type': 'application/json',
-      token: auth.token,
     };
     const resp = await axios.post('/api/quiz', values, { headers: header });
     return resp;
@@ -13,11 +12,10 @@ export const addQuizApi = async (auth: any, values: any) => {
   }
 };
 
-export const addAnswerApi = async (auth, quizId, values) => {
+export const addAnswerApi = async (quizId, values) => {
   try {
     const header = {
       'Content-Type': 'application/json',
-      token: auth.token,
     };
     const resp = await axios.post(
       `/api/quiz/${quizId}/answer`,
