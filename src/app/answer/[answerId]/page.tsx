@@ -1,10 +1,12 @@
 "use client";
 
 import {
+  Box,
   Button,
   Center,
   Container,
   Divider,
+  Flex,
   FormControl,
   FormLabel,
   Heading,
@@ -21,29 +23,7 @@ import { getSingleQuiz } from "@/utils/db";
 
 const ShowQuiz = ({ quiz, onSubmit }) => {
   return (
-    <Container
-      maxW="7xl"
-      mt={5}
-      mb={5}
-      borderWidth="1px"
-      borderRadius="lg"
-      p={6}
-      boxShadow="xl"
-    >
-      <Center flexDirection="column">
-        <Heading>{quiz.title}</Heading>
-      </Center>
-      <Text mt={4}>{quiz.description}</Text>
-      <Heading mt={4} size="lg">
-        Questions:
-      </Heading>
-      <Divider
-        mt={4}
-        mb={4}
-        css={{
-          boxShadow: "1px 1px #888888",
-        }}
-      />
+    <Container textAlign={"center"} p={6}>
       <Formik initialValues={{}} onSubmit={onSubmit}>
         {(props) => (
           <Form>
@@ -55,22 +35,41 @@ const ShowQuiz = ({ quiz, onSubmit }) => {
                     isRequired={true}
                     mb={{ base: 4, md: 0 }}
                   >
-                    <FormLabel as="legend">{singleQuiz.title}</FormLabel>
-                    <RadioGroup>
-                      <SimpleGrid minChildWidth="120px" mb={2}>
-                        {singleQuiz.options.map((option, subkey) => (
-                          <HStack key={subkey}>
-                            <Field
-                              {...field}
-                              type="radio"
-                              name={singleQuiz.questionId}
-                              value={option.optionId}
-                            />
-                            <Text>{option.title}</Text>
-                          </HStack>
-                        ))}
-                      </SimpleGrid>
-                    </RadioGroup>
+                    <Box
+                      as="article"
+                      textAlign={"start"}
+                      backgroundColor={"#202025"}
+                      m={3}
+                      borderRadius="2xl"
+                      p={6}
+                    >
+                      <FormLabel
+                        textAlign={"center"}
+                        fontSize={"lg"}
+                        fontStyle={"italic"}
+                        letterSpacing={"tighter"}
+                        fontWeight={"extrabold"}
+                        fontFamily={"Ropa Sans, sans-serif"}
+                        as="legend"
+                      >
+                        {singleQuiz.title}
+                      </FormLabel>
+                      <RadioGroup>
+                        <Flex flexDir={"column"} mb={2}>
+                          {singleQuiz.options.map((option, subkey) => (
+                            <HStack key={subkey}>
+                              <Field
+                                {...field}
+                                type="checkbox"
+                                name={singleQuiz.questionId}
+                                value={option.optionId}
+                              />
+                              <Text>{option.title}</Text>
+                            </HStack>
+                          ))}
+                        </Flex>
+                      </RadioGroup>
+                    </Box>
                   </FormControl>
                 )}
               </Field>
@@ -80,6 +79,16 @@ const ShowQuiz = ({ quiz, onSubmit }) => {
                 type="submit"
                 isLoading={props.isSubmitting}
                 colorScheme="green"
+                w={"100%"}
+                borderRadius="3xl"
+                mt={"15px"}
+                h={"16"}
+                __css={{ bgColor: "#5000ff !important" }}
+                fontStyle={"italic"}
+                fontSize={"2xl"}
+                letterSpacing={"tighter"}
+                fontWeight={"extrabold"}
+                fontFamily={"Ropa Sans, sans-serif"}
               >
                 Submit
               </Button>
@@ -105,12 +114,11 @@ const SingleQuiz = ({ params }) => {
     fetchQuiz();
   }, []);
 
-  
   const onSubmit = async (values, actions) => {
     try {
       const resp = await addAnswerApi(params.id, values);
-      const answerId = resp.data.data.answerId;
-      router.push(`/quiz/${params.id}/answer/${answerId}`);
+      const resultId = resp.data.data.answerId;
+      router.push(`/answer/${answerId}/results/${resultId}`);
     } catch (error) {
       console.log("error", error);
     } finally {

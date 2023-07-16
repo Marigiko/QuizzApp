@@ -33,8 +33,10 @@ const Index = () => {
   const initialValues = {
     title: "",
     description: "",
-    questions: Array.from({ length: 10 }, () => questionsData),
+    questions: [questionsData],
   };
+
+  //Array.from({ length: 10 }, () => questionsData)
 
   const submitHandler = async (values: any, actions: any) => {
     try {

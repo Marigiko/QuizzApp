@@ -3,6 +3,7 @@
 import { getAnswer, getSingleQuiz } from "@/utils/db";
 import {
   Box,
+  Button,
   Center,
   Container,
   Divider,
@@ -17,16 +18,18 @@ import React, { useEffect, useState } from "react";
 
 const Answer = () => {
   const router = useRouter();
-  const { answerId } = useParams();
+  const { answerId, resultId } = useParams();
   const [quiz, setQuiz] = useState(null);
   const [answer, setAnswer] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       const quizData = await getSingleQuiz(answerId);
-      //const answerData = await getAnswer(answerId);
+      const answerData = await getAnswer(resultId);
+      //console.log(quizData);
+      //console.log(answerData);
       setQuiz(quizData);
-      //setAnswer(answerData);
+      setAnswer(answerData);
     };
 
     fetchData();
@@ -37,7 +40,7 @@ const Answer = () => {
       {quiz && answer && (
         <Container maxW="3xl" mt={5}>
           <Center flexDirection="column">
-            <Heading>Correct Answer for {quiz.title}</Heading>
+            <Heading>Correct Answer for Quiz</Heading>
             <Text mt={4}>{quiz.description}</Text>
           </Center>
           <Divider
@@ -59,10 +62,18 @@ const Answer = () => {
                 boxShadow="xl"
                 backgroundColor={
                   jsonAnswer.questions[singleQuiz.questionId] &&
-                  singleQuiz.options[singleQuiz.answer].optionId ===
-                    jsonAnswer.questions[singleQuiz.questionId]
-                    ? "green.200"
-                    : "red.200"
+                  singleQuiz.answer.map(
+                    (idx) => singleQuiz.options[idx].optionId
+                  ).length ===
+                    jsonAnswer.questions[singleQuiz.questionId].length &&
+                  JSON.stringify(
+                    singleQuiz.answer.map(
+                      (idx) => singleQuiz.options[idx].optionId
+                    )
+                  ) ===
+                    JSON.stringify(jsonAnswer.questions[singleQuiz.questionId])
+                    ? "green.400"
+                    : "red.400"
                 }
               >
                 <Text>
@@ -78,18 +89,34 @@ const Answer = () => {
                   </SimpleGrid>
                 </RadioGroup>
                 <Text mt={3}>
-                  Correct Answer: {singleQuiz.options[singleQuiz.answer].title}
+                  Correct Answer: <br />
+                  {singleQuiz.answer.map((item, idx) => {
+                    return (
+                      <Text as={"span"} key={idx}>
+                        <br />
+                        {singleQuiz.options[singleQuiz.answer[idx]].title}
+                      </Text>
+                    );
+                  })}
                 </Text>
                 {jsonAnswer.questions[singleQuiz.questionId] ? (
                   <Text>
-                    Selected Answer:{" "}
-                    {
-                      singleQuiz.options.find(
-                        (option) =>
-                          option.optionId ===
-                          jsonAnswer.questions[singleQuiz.questionId]
-                      ).title
-                    }
+                    <br />
+                    Selected Answer: <br />
+                    {jsonAnswer.questions[singleQuiz.questionId].map(
+                      (idx, key) => {
+                        return (
+                          <Text as={"span"} key={key}>
+                            <br />
+                            {
+                              singleQuiz.options.find(
+                                (option) => option.optionId === idx
+                              ).title
+                            }
+                          </Text>
+                        );
+                      }
+                    )}
                   </Text>
                 ) : (
                   <Text>Not Answered</Text>
@@ -97,6 +124,21 @@ const Answer = () => {
               </Box>
             );
           })}
+          <Button
+            w={"100%"}
+            onClick={() => router.push(`/`)}
+            borderRadius="3xl"
+            mt={"15px"}
+            h={"16"}
+            __css={{ bgColor: "#5000ff !important" }}
+            fontStyle={"italic"}
+            fontSize={"2xl"}
+            letterSpacing={"tighter"}
+            fontWeight={"extrabold"}
+            fontFamily={"Ropa Sans, sans-serif"}
+          >
+            Go Home
+          </Button>
         </Container>
       )}
     </>
