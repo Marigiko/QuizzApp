@@ -14,7 +14,7 @@ const stylesInput = {
 const SingleQuiz = () => {
   const router = useRouter();
   const inputRef = useRef();
-  const { id } = useParams();
+  const { id }: any = useParams();
   console.log(window.location);
   return (
     <Container maxW="3xl" mt={5} mb={5} p={6} boxShadow="xl">
