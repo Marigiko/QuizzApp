@@ -7,7 +7,7 @@ import React, { useRef } from "react";
 
 const Home = () => {
   const router = useRouter();
-  const inputRef = useRef();
+  const inputRef: any = useRef();
   /*
   const [quiz, setQuiz] = useState([]);
   
@@ -162,7 +162,7 @@ const Home = () => {
             borderRadius="2xl"
             onKeyPressCapture={(event) => {
               if (event.key === "Enter") {
-                router.push(`/questions/${inputRef.current.value}`);
+                router.push(`/questions/${inputRef.current?.value}`);
               }
             }}
             ref={inputRef}
@@ -175,7 +175,7 @@ const Home = () => {
           />
           <Button
             w={"100%"}
-            onClick={() => router.push(`/questions/${inputRef.current.value}`)}
+            onClick={() => router.push(`/questions/${inputRef.current?.value}`)}
             borderRadius="3xl"
             mt={"15px"}
             h={"16"}
