@@ -22,7 +22,7 @@ import { useParams } from "next/navigation";
 
 const Index = () => {
   const router = useRouter();
-  let { name } = useParams();
+  let { name }: any = useParams();
 
   const questionsData = {
     title: "",
