@@ -13,7 +13,7 @@ const stylesInput = {
 
 const SingleQuiz = () => {
   const router = useRouter();
-  const inputRef = useRef();
+  const inputRef: any = useRef();
   const { id }: any = useParams();
   console.log(window.location);
   return (
@@ -52,7 +52,6 @@ const SingleQuiz = () => {
         </Text>
         <Input
           w={"80%"}
-          borderRadius={"2xl"}
           h={"14"}
           value={window.location.origin + "/answer/" + id}
           borderWidth="4px"
@@ -64,7 +63,7 @@ const SingleQuiz = () => {
         <Button
           w={"70%"}
           onClick={() => {
-            inputRef.current.select();
+            inputRef.current?.select();
             document.execCommand("copy");
           }}
           borderRadius="3xl"

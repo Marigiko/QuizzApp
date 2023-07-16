@@ -152,6 +152,9 @@ const Index = () => {
                                       {({
                                         push: pushOption,
                                         remove: removeOption,
+                                      }: {
+                                        push: any,
+                                        remove: any,
                                       }) => (
                                         <>
                                           {_question.options.map(
@@ -174,10 +177,10 @@ const Index = () => {
                                                   />
                                                   <Input
                                                     w={"85%"}
-                                                    id={Math.pow(
+                                                    id={String(Math.pow(
                                                       subIndex + index + 3,
                                                       index + 2
-                                                    )}
+                                                    ))}
                                                     borderRadius="2xl"
                                                     textAlign={"start"}
                                                     h={"20"}

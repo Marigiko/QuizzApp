@@ -54,7 +54,7 @@ const Answer = () => {
             const jsonAnswer = JSON.parse(answer);
             return (
               <Box
-                mt={index !== 0 && 4}
+                mt={4}
                 key={index}
                 borderWidth="1px"
                 borderRadius="lg"
