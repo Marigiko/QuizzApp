@@ -52,7 +52,7 @@ const SingleQuiz = () => {
         </Text>
         <Input
           w={"80%"}
-          borderRadius="2xl"
+          borderRadius={"2xl"}
           h={"14"}
           value={window.location.origin + "/answer/" + id}
           borderWidth="4px"

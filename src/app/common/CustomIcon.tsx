@@ -15,7 +15,7 @@ const IconButton = {
   },
 };
 
-const CustomIconButton = (props) => (
+const CustomIconButton = (props: any) => (
   <ChakraIconButton
     ml={"15px"}
     icon={<CloseIcon />} // Icono "X"

@@ -21,15 +21,15 @@ import React, { useEffect, useState } from "react";
 import { addAnswerApi } from "@/utils/service";
 import { getSingleQuiz } from "@/utils/db";
 
-const ShowQuiz = ({ quiz, onSubmit }) => {
+const ShowQuiz = ({ quiz, onSubmit }: any) => {
   return (
     <Container textAlign={"center"} p={6}>
       <Formik initialValues={{}} onSubmit={onSubmit}>
         {(props) => (
           <Form>
-            {quiz.questions.map((singleQuiz, key) => (
+            {quiz.questions.map((singleQuiz: any, key: any) => (
               <Field name={singleQuiz.questionId} key={key}>
-                {({ field, _form }) => (
+                {({ field, _form }: any) => (
                   <FormControl
                     as="fieldset"
                     isRequired={true}
@@ -56,7 +56,7 @@ const ShowQuiz = ({ quiz, onSubmit }) => {
                       </FormLabel>
                       <RadioGroup>
                         <Flex flexDir={"column"} mb={2}>
-                          {singleQuiz.options.map((option, subkey) => (
+                          {singleQuiz.options.map((option: any, subkey: any) => (
                             <HStack key={subkey}>
                               <Field
                                 {...field}
@@ -100,21 +100,21 @@ const ShowQuiz = ({ quiz, onSubmit }) => {
   );
 };
 
-const SingleQuiz = ({ params }) => {
+const SingleQuiz = ({ params }: any) => {
   const router = useRouter();
-  const { answerId } = useParams();
+  const { answerId }: any = useParams();
   const [quiz, setQuiz] = useState(null);
 
   useEffect(() => {
     const fetchQuiz = async () => {
-      const quizData = await getSingleQuiz(answerId);
+      const quizData: any = await getSingleQuiz(answerId);
       console.log(quizData);
       setQuiz(quizData);
     };
     fetchQuiz();
   }, []);
 
-  const onSubmit = async (values, actions) => {
+  const onSubmit = async (values: any, actions: any) => {
     try {
       const resp = await addAnswerApi(params.id, values);
       const resultId = resp.data.data.answerId;

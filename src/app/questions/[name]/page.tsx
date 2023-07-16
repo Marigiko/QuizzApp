@@ -47,10 +47,10 @@ const Index = () => {
         id: docId,
         createdAt: new Date(),
         updatedAt: new Date(),
-        questions: values.questions.map((question) => {
+        questions: values.questions.map((question: any) => {
           return {
             ...question,
-            options: question.options.map((option) => {
+            options: question.options.map((option: any) => {
               return { ...option, optionId: uuidv4() };
             }),
             questionId: uuidv4(),
@@ -105,18 +105,18 @@ const Index = () => {
           {(props) => (
             <Form>
               <Field name="questions">
-                {({ field }) => (
+                {({ field }: any) => (
                   <FormControl>
                     <Box ml={4}>
                       <FieldArray {...field} name="questions">
-                        {(fieldArrayProps) => {
+                        {(fieldArrayProps: any) => {
                           const { push, remove, form } = fieldArrayProps;
                           const { values, errors, touched } = form;
                           const { questions } = values;
 
                           return (
                             <div>
-                              {questions.map((_question, index) => {
+                              {questions.map((_question: any, index: any) => {
                                 return (
                                   <Flex
                                     key={index}
@@ -155,7 +155,7 @@ const Index = () => {
                                       }) => (
                                         <>
                                           {_question.options.map(
-                                            (option, subIndex) => (
+                                            (option: any, subIndex: any) => (
                                               <FormControl
                                                 mb={2}
                                                 key={subIndex}

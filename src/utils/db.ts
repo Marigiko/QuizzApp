@@ -36,7 +36,7 @@ export const getAllUsers = async () => {
   return users;
 };
 
-export const getSingleQuiz = async (quizId) => {
+export const getSingleQuiz = async (quizId: any) => {
   const q = query(collection(firestore, "quiz"), where("id", "==", quizId));
   const querySnapshot = await getDocs(q);
 
@@ -49,12 +49,12 @@ export const getSingleQuiz = async (quizId) => {
   }
 };
 
-export const addAnswer = async (data) => {
+export const addAnswer = async (data: any) => {
   const docRef = await addDoc(collection(firestore, "answer"), data);
   return docRef;
 };
 
-export const getAnswer = async (answerId) => {
+export const getAnswer = async (answerId: any) => {
   const snapshot = await getDoc(
     doc(collection(firestore, "answer"), String(answerId))
   );

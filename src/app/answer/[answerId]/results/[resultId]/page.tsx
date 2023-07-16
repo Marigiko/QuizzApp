@@ -18,14 +18,14 @@ import React, { useEffect, useState } from "react";
 
 const Answer = () => {
   const router = useRouter();
-  const { answerId, resultId } = useParams();
-  const [quiz, setQuiz] = useState(null);
+  const { answerId, resultId }: any = useParams();
+  const [quiz, setQuiz]: any = useState(null);
   const [answer, setAnswer] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const quizData = await getSingleQuiz(answerId);
-      const answerData = await getAnswer(resultId);
+      const quizData: any = await getSingleQuiz(answerId);
+      const answerData: any = await getAnswer(resultId);
       //console.log(quizData);
       //console.log(answerData);
       setQuiz(quizData);
@@ -50,7 +50,7 @@ const Answer = () => {
               boxShadow: "1px 1px #888888",
             }}
           />
-          {quiz.questions.map((singleQuiz, index) => {
+          {quiz.questions.map((singleQuiz: any, index: any) => {
             const jsonAnswer = JSON.parse(answer);
             return (
               <Box
@@ -63,12 +63,12 @@ const Answer = () => {
                 backgroundColor={
                   jsonAnswer.questions[singleQuiz.questionId] &&
                   singleQuiz.answer.map(
-                    (idx) => singleQuiz.options[idx].optionId
+                    (idx: any) => singleQuiz.options[idx].optionId
                   ).length ===
                     jsonAnswer.questions[singleQuiz.questionId].length &&
                   JSON.stringify(
                     singleQuiz.answer.map(
-                      (idx) => singleQuiz.options[idx].optionId
+                      (idx: any) => singleQuiz.options[idx].optionId
                     )
                   ) ===
                     JSON.stringify(jsonAnswer.questions[singleQuiz.questionId])
@@ -81,7 +81,7 @@ const Answer = () => {
                 </Text>
                 <RadioGroup>
                   <SimpleGrid minChildWidth="120px" mt={2}>
-                    {singleQuiz.options.map((option, index) => (
+                    {singleQuiz.options.map((option: any, index: any) => (
                       <Radio value={option.title} isDisabled key={index}>
                         {option.title}
                       </Radio>
@@ -90,7 +90,7 @@ const Answer = () => {
                 </RadioGroup>
                 <Text mt={3}>
                   Correct Answer: <br />
-                  {singleQuiz.answer.map((item, idx) => {
+                  {singleQuiz.answer.map((item: any, idx: any) => {
                     return (
                       <Text as={"span"} key={idx}>
                         <br />
@@ -104,13 +104,13 @@ const Answer = () => {
                     <br />
                     Selected Answer: <br />
                     {jsonAnswer.questions[singleQuiz.questionId].map(
-                      (idx, key) => {
+                      (idx: any, key: any) => {
                         return (
                           <Text as={"span"} key={key}>
                             <br />
                             {
                               singleQuiz.options.find(
-                                (option) => option.optionId === idx
+                                (option: any) => option.optionId === idx
                               ).title
                             }
                           </Text>

@@ -12,7 +12,7 @@ export const addQuizApi = async (values: any) => {
   }
 };
 
-export const addAnswerApi = async (quizId, values) => {
+export const addAnswerApi = async (quizId: any, values: any) => {
   try {
     const header = {
       'Content-Type': 'application/json',

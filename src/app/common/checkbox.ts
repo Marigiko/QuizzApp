@@ -13,7 +13,7 @@ export const Checkbox = {
   },
   // Estilos para variantes (como colores)
   variants: {
-    circular: (props) => ({
+    circular: (props: any) => ({
       control: {
         bg: '#1a202c', // Color de fondo cuando está seleccionado (verde si está seleccionado, gris oscuro si no está seleccionado)
         borderColor: '#3c3c47',
